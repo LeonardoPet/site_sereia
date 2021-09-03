@@ -948,6 +948,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 
 <body id="page-top" class="index">
+  <script>
+    //tn: tracker name
+    //tc: tracher code
+    //cn: cookie name
+    (function(tn, tc, cn) {
+      window[tn] = window[tn] || {
+        status: "loading_code",
+        code: tc,
+        cookieName: cn,
+        queue: [],
+        send: function(a, d){
+          d = d || {};
+          window[tn].queue.push({
+            a: a,
+            d: Object.assign(d, {timestamp: Date.now()})
+          });
+        }
+      };
+
+    if(window[tn].status == "loading_code") {
+      window[tn].status = "waiting_script";
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://script.google.com/macros/s/" + tc + "/dev/library?tn=" + tn;
+      document.body.appendChild(s);
+  }
+    })("tracker", "AKfycbyL_Rl_HNYz6iJiC8weQs_cFmie2H0b2XjhCntQKJc", "_trackerCk");
+    //https://script.google.com/macros/s/AKfycbyL_Rl_HNYz6iJiC8weQs_cFmie2H0b2XjhCntQKJc/dev
+    window["tracker"].send("pageview");
+    
+  </script>
+  
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDHXM7Z"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
